@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PicturesVideoPlayer", "PicturesVideoPlayer\PicturesVideoPlayer.csproj", "{3FD8E842-F922-46BC-975F-E440239211F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PicturesVideoGenerator", "PicturesVideoGenerator\PicturesVideoGenerator.csproj", "{9272CD90-F22D-40AF-BE73-2742872FDA2F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3FD8E842-F922-46BC-975F-E440239211F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FD8E842-F922-46BC-975F-E440239211F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FD8E842-F922-46BC-975F-E440239211F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FD8E842-F922-46BC-975F-E440239211F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9272CD90-F22D-40AF-BE73-2742872FDA2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9272CD90-F22D-40AF-BE73-2742872FDA2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9272CD90-F22D-40AF-BE73-2742872FDA2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9272CD90-F22D-40AF-BE73-2742872FDA2F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7D6E44F1-4C2C-418F-B007-763128E81EAB}
+	EndGlobalSection
+EndGlobal
