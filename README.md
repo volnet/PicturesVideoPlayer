@@ -16,3 +16,9 @@ Designs
 ----------------------------
 
 ![Figure](docs/design/principle.png)
+
+Useage
+----------------------------
+
+1. Run "PicturesVideoPlayer.exe" by click. (Windows)
+2. Run "PicturesGenerator.exe" in command line (Windows->RUN CMD)
