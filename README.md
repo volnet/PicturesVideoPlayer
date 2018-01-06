@@ -15,4 +15,4 @@ Features
 Designs
 ----------------------------
 
-![Figure](design/principle.png)
+![Figure](docs/design/principle.png)
