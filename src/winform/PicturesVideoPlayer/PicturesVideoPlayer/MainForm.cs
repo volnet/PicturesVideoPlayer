@@ -27,7 +27,8 @@ namespace PicturesVideoPlayer
         }
 
         private void InitUI()
-        {
+        { 
+
             // PlayOrPause button
             this.btnPlayOrPause.Parent = this.pictureBox1;
             this.btnPlayOrPause.Image = global::PicturesVideoPlayer.Properties.Resources.play;
@@ -199,6 +200,12 @@ namespace PicturesVideoPlayer
         private void MainForm_Resize(object sender, EventArgs e)
         {
             this.pictureBox1.Size = this.ClientSize;
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SettingsForm sf = new SettingsForm();
+            sf.Show();
         }
     }
 }
