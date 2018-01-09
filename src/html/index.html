@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>PicturesVideoPlayer</title>
+    <script type="text/javascript">
+        var fileName = "Video/frame.jpg";
+        function reload(container) {
+            if (container) {
+                container.src = fileName + "?rnd=" + new Date();
+            }
+        }
+
+        window.addEventListener("load", function () {
+            var container = document.getElementById("frameView");
+            if (container) {
+                setInterval(function () {
+                    reload(container);
+                }, 1000);
+            }
+        });
+    </script>
+</head>
+<body>
+    <div style="width:100%; height:100%; line-height:100%;">
+        <img id="frameView" src="Video/frame.jpg" alt="frame" style="width:100%" />
+    </div>
+</body>
+</html>
