@@ -30,31 +30,31 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxFrameView = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.btnPlayOrPause = new System.Windows.Forms.PictureBox();
             this.timerForShowingBtnPause = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFrameView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnPlayOrPause)).BeginInit();
             this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Black;
-            this.pictureBox1.ContextMenuStrip = this.contextMenuStrip;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.ErrorImage = null;
-            this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1364, 883);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.DoubleClick += new System.EventHandler(this.pictureBox1_DoubleClick);
+            this.pictureBoxFrameView.BackColor = System.Drawing.Color.Black;
+            this.pictureBoxFrameView.ContextMenuStrip = this.contextMenuStrip;
+            this.pictureBoxFrameView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxFrameView.ErrorImage = null;
+            this.pictureBoxFrameView.InitialImage = null;
+            this.pictureBoxFrameView.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxFrameView.Name = "pictureBox1";
+            this.pictureBoxFrameView.Size = new System.Drawing.Size(1364, 883);
+            this.pictureBoxFrameView.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxFrameView.TabIndex = 0;
+            this.pictureBoxFrameView.TabStop = false;
+            this.pictureBoxFrameView.DoubleClick += new System.EventHandler(this.pictureBox1_DoubleClick);
             // 
             // timer1
             // 
@@ -93,7 +93,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1364, 883);
             this.Controls.Add(this.btnPlayOrPause);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pictureBoxFrameView);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "PicturesVideoPlayer (Show JPEG file as MPEG)";
@@ -101,7 +101,7 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseDoubleClick);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFrameView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnPlayOrPause)).EndInit();
             this.contextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -110,7 +110,7 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBoxFrameView;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.PictureBox btnPlayOrPause;
         private System.Windows.Forms.Timer timerForShowingBtnPause;

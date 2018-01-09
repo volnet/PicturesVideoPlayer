@@ -28,14 +28,13 @@ namespace PicturesVideoPlayer
 
         private void InitUI()
         { 
-
             // PlayOrPause button
-            this.btnPlayOrPause.Parent = this.pictureBox1;
+            this.btnPlayOrPause.Parent = this.pictureBoxFrameView;
             this.btnPlayOrPause.Image = global::PicturesVideoPlayer.Properties.Resources.play;
-            this.btnPlayOrPause.Text = "";
+            this.btnPlayOrPause.Text = string.Empty;
 
-            this.pictureBox1.MouseHover += PictureBox1_MouseHover;
-            this.pictureBox1.MouseLeave += PictureBox1_MouseLeave;
+            this.pictureBoxFrameView.MouseHover += PictureBox1_MouseHover;
+            this.pictureBoxFrameView.MouseLeave += PictureBox1_MouseLeave;
             this.btnPlayOrPause.MouseHover += BtnPlayOrPause_MouseHover;
             this.btnPlayOrPause.MouseLeave += BtnPlayOrPause_MouseLeave;
         }
@@ -73,72 +72,59 @@ namespace PicturesVideoPlayer
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            Image img = null;
+            Stream ms = GetFrameStream();
+            img = Image.FromStream(ms);
+            UpdateFrame(img);
+        }
+
+        private Stream GetFrameStream()
+        {
             try
             {
-                this.SuspendLayout();
                 string path = framePath;
                 byte[] buffer = System.IO.File.ReadAllBytes(path);
                 if (buffer != null)
                 {
                     MemoryStream ms = new MemoryStream(buffer);
-                    Image img = Image.FromStream(ms);
-                    pictureBox1.Image = img;
-                    pictureBox1.Refresh();
+                    return ms;
                 }
-                this.ResumeLayout(true);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
+
+            return null;
+        }
+
+        private void UpdateFrame(Image frame)
+        {
+            this.SuspendLayout();
+            pictureBoxFrameView.Image = frame;
+            pictureBoxFrameView.Refresh();
+            this.ResumeLayout(true);
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F11 || e.KeyCode == Keys.Escape)
             {
-                SwitchFullScreen();
+                Helpers.UIHelper.SwitchFullScreen(this);
             }
         }
 
         private void MainForm_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            SwitchFullScreen();
+            Helpers.UIHelper.SwitchFullScreen(this);
         }
 
         private void pictureBox1_DoubleClick(object sender, EventArgs e)
         {
-            SwitchFullScreen();
+            Helpers.UIHelper.SwitchFullScreen(this);
         }
 
-        #region FullScreen
 
-        private void SwitchFullScreen()
-        {
-            if (WindowState == FormWindowState.Maximized)
-            {
-                ShowWindow(FindWindow("Shell_TrayWnd", null), SW_RESTORE);
-                FormBorderStyle = FormBorderStyle.Sizable;
-                WindowState = FormWindowState.Normal;
-            }
-            else if (WindowState == FormWindowState.Normal)
-            {
-                ShowWindow(FindWindow("Shell_TrayWnd", null), SW_HIDE);
-                FormBorderStyle = FormBorderStyle.None;
-                WindowState = FormWindowState.Maximized;
-            }
-        }
-
-        [DllImport("user32.dll")]
-        public static extern int ShowWindow(int hwnd, int nCmdShow);
-
-        [DllImport("user32.dll")]
-        public static extern int FindWindow(string lpClassName, string lpWindowName);
-
-        private const int SW_HIDE = 0;  //隐藏任务栏
-        private const int SW_RESTORE = 9;//显示任务栏
-
-        #endregion
 
         private void btnPlayOrPause_Click(object sender, EventArgs e)
         {
@@ -192,14 +178,10 @@ namespace PicturesVideoPlayer
                 timerForShowingBtnPause.Stop();
             }
         }
-
-
-        [DllImport("user32.dll", EntryPoint = "ShowCursor", CharSet = CharSet.Auto)]
-        public extern static void ShowCursor(int status);
-
+        
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            this.pictureBox1.Size = this.ClientSize;
+            this.pictureBoxFrameView.Size = this.ClientSize;
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)

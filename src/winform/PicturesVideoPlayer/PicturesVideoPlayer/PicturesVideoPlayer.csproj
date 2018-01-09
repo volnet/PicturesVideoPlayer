@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configs.cs" />
+    <Compile Include="Helpers\UIHelper.cs" />
     <Compile Include="Settings\SettingTypes\Modes.cs" />
     <Compile Include="Settings\Setting.cs" />
     <Compile Include="MainForm.cs">
