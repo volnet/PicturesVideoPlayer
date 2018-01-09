@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PicturesVideoPlayer.Connector;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,11 +20,15 @@ namespace PicturesVideoPlayer
             InitializeComponent();
         }
 
+        private IUIConnector _connector = null;
         private void MainForm_Load(object sender, EventArgs e)
         {
+            if (Settings.Setting.Instance.Mode == Settings.SettingTypes.Modes.Replace)
+            {
+                _connector = new LocalDiskPollingConnector(this, this.pictureBoxFrameView, this.components);
+            }
+
             InitUI();
-            this.timer1.Interval = 1000 / Configs.FPS;
-            framePath = GetFramePath();
         }
 
         private void InitUI()
@@ -33,13 +38,13 @@ namespace PicturesVideoPlayer
             this.btnPlayOrPause.Image = global::PicturesVideoPlayer.Properties.Resources.play;
             this.btnPlayOrPause.Text = string.Empty;
 
-            this.pictureBoxFrameView.MouseHover += PictureBox1_MouseHover;
-            this.pictureBoxFrameView.MouseLeave += PictureBox1_MouseLeave;
+            this.pictureBoxFrameView.MouseHover += PictureBoxFrameView_MouseHover;
+            this.pictureBoxFrameView.MouseLeave += PictureBoxFrameView_MouseLeave;
             this.btnPlayOrPause.MouseHover += BtnPlayOrPause_MouseHover;
             this.btnPlayOrPause.MouseLeave += BtnPlayOrPause_MouseLeave;
         }
 
-        private void PictureBox1_MouseLeave(object sender, EventArgs e)
+        private void PictureBoxFrameView_MouseLeave(object sender, EventArgs e)
         {
             btnPlayOrPauseNeedBeHide = true;
             HideBtnPauseLater();
@@ -57,53 +62,10 @@ namespace PicturesVideoPlayer
             ShowBtnPause();
         }
 
-        private void PictureBox1_MouseHover(object sender, EventArgs e)
+        private void PictureBoxFrameView_MouseHover(object sender, EventArgs e)
         {
             btnPlayOrPauseNeedBeHide = false;
             ShowBtnPause();
-        }
-
-        private string framePath = string.Empty;
-
-        private string GetFramePath()
-        {
-            return Configs.FrameFullPath;
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            Image img = null;
-            Stream ms = GetFrameStream();
-            img = Image.FromStream(ms);
-            UpdateFrame(img);
-        }
-
-        private Stream GetFrameStream()
-        {
-            try
-            {
-                string path = framePath;
-                byte[] buffer = System.IO.File.ReadAllBytes(path);
-                if (buffer != null)
-                {
-                    MemoryStream ms = new MemoryStream(buffer);
-                    return ms;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-
-            return null;
-        }
-
-        private void UpdateFrame(Image frame)
-        {
-            this.SuspendLayout();
-            pictureBoxFrameView.Image = frame;
-            pictureBoxFrameView.Refresh();
-            this.ResumeLayout(true);
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
@@ -138,14 +100,14 @@ namespace PicturesVideoPlayer
             {
                 this.btnPlayOrPause.Image = global::PicturesVideoPlayer.Properties.Resources.play;
                 isPlaying = false;
-                timer1.Stop();
+                _connector.RefreshStop();
             }
             else
             {
                 this.btnPlayOrPause.Image = global::PicturesVideoPlayer.Properties.Resources.pause;
                 isPlaying = true;
                 btnPlayOrPauseNeedBeHide = true;
-                timer1.Start();
+                _connector.RefreshStart();
 
                 HideBtnPauseLater();
             }

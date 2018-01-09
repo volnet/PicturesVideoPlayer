@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pictureBoxFrameView = new System.Windows.Forms.PictureBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.btnPlayOrPause = new System.Windows.Forms.PictureBox();
             this.timerForShowingBtnPause = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -55,10 +54,7 @@
             this.pictureBoxFrameView.TabIndex = 0;
             this.pictureBoxFrameView.TabStop = false;
             this.pictureBoxFrameView.DoubleClick += new System.EventHandler(this.pictureBox1_DoubleClick);
-            // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+
             // 
             // btnPlayOrPause
             // 
@@ -111,7 +107,6 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBoxFrameView;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.PictureBox btnPlayOrPause;
         private System.Windows.Forms.Timer timerForShowingBtnPause;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip;

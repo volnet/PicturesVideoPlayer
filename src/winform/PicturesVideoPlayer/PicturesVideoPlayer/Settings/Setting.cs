@@ -45,11 +45,11 @@ namespace PicturesVideoPlayer.Settings
                     // For Windows
                     if (-1 != SourceFolderPath.IndexOf(":"))
                     {
-                        _sourceFolderFullPath = System.IO.Path.GetFullPath(SourceFolderPath);
+                        _sourceFolderFullPath = SourceFolderPath;
                     }
                     else
                     {
-                        _sourceFolderFullPath = SourceFolderPath;
+                        _sourceFolderFullPath = System.IO.Path.GetFullPath(SourceFolderPath);
                     }
                 }
                 return _sourceFolderFullPath;
@@ -64,7 +64,8 @@ namespace PicturesVideoPlayer.Settings
             {
                 if (_frameFullPath == null)
                 {
-                    _frameFullPath = System.IO.Path.Combine(
+                    _frameFullPath =
+                        System.IO.Path.Combine(
                         string.IsNullOrEmpty(SourceFolderFullPath) ? string.Empty : SourceFolderFullPath,
                         string.IsNullOrEmpty(FrameName) ? string.Empty : FrameName);
                 }
