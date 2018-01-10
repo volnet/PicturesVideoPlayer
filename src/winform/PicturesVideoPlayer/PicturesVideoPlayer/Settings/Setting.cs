@@ -16,9 +16,8 @@ namespace PicturesVideoPlayer.Settings
             // set default value
             this.Mode = Modes.Replace;
 
-            this.SourceFolderPath = "Video\\";
-            this.FrameName = "frame.jpg";
-            this.URI = string.Empty;
+            this.SourceFramePath = "Video\\frame.jpg";
+            this.SourceFrameURI = string.Empty;
 
             this.FPS = 30;
             this.SizeMode = SizeModes.Zoom;
@@ -33,46 +32,30 @@ namespace PicturesVideoPlayer.Settings
         public Modes Mode { get; set; }
 
         // input setting
-        public string SourceFolderPath { get; set; }
-        private string _sourceFolderFullPath = string.Empty;
+        public string SourceFramePath { get; set; }
+        private string _sourceFrameFullPath = string.Empty;
         [JsonIgnore]
-        public string SourceFolderFullPath
+        public string SourceFrameFullPath
         {
             get
             {
-                if (!string.IsNullOrEmpty(SourceFolderPath))
+                if (!string.IsNullOrEmpty(SourceFramePath))
                 {
                     // For Windows
-                    if (-1 != SourceFolderPath.IndexOf(":"))
+                    if (-1 != SourceFramePath.IndexOf(":"))
                     {
-                        _sourceFolderFullPath = SourceFolderPath;
+                        _sourceFrameFullPath = SourceFramePath;
                     }
                     else
                     {
-                        _sourceFolderFullPath = System.IO.Path.GetFullPath(SourceFolderPath);
+                        _sourceFrameFullPath = System.IO.Path.GetFullPath(SourceFramePath);
                     }
                 }
-                return _sourceFolderFullPath;
+                return _sourceFrameFullPath;
             }
         }
-        public string FrameName { get; set; }
-        private string _frameFullPath = null;
-        [JsonIgnore]
-        public string FrameFullPath
-        {
-            get
-            {
-                if (_frameFullPath == null)
-                {
-                    _frameFullPath =
-                        System.IO.Path.Combine(
-                        string.IsNullOrEmpty(SourceFolderFullPath) ? string.Empty : SourceFolderFullPath,
-                        string.IsNullOrEmpty(FrameName) ? string.Empty : FrameName);
-                }
-                return _frameFullPath;
-            }
-        }
-        public string URI { get; set; }
+
+        public string SourceFrameURI { get; set; }
 
         // output setting
         public int FPS { get; set; }
@@ -127,7 +110,7 @@ namespace PicturesVideoPlayer.Settings
                 if (System.IO.File.Exists(filePath))
                 {
                     string json = System.IO.File.ReadAllText(filePath);
-                    result = (Setting)JsonConvert.DeserializeObject(json);
+                    result = JsonConvert.DeserializeObject<Setting>(json);
                 }
             }
             catch (Exception ex)

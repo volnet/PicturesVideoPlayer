@@ -18,43 +18,70 @@ namespace PicturesVideoPlayer
             OnInit();
         }
 
-        private Settings.Setting setting = null;
+        private Settings.Setting _setting = null;
         private void OnInit()
         {
-            setting = Settings.Setting.Instance;
-            if (setting != null)
+            _setting = Settings.Setting.Instance;
+            if (_setting != null)
             {
-                this.comboBoxMode.SelectedIndex = (int)setting.Mode;
+                this.comboBoxMode.SelectedIndex = (int)_setting.Mode;
 
-                this.textBoxSourceFolderPath.Text = setting.SourceFolderPath;
-                this.textBoxFrameName.Text = setting.FrameName;
+                if (_setting.Mode == Settings.SettingTypes.Modes.Replace)
+                {
+                    this.textBoxSourceFramePath.Text = _setting.SourceFramePath;
+                }
+                else if (_setting.Mode == Settings.SettingTypes.Modes.HTTPGet)
+                {
+                    this.textBoxSourceFramePath.Text = _setting.SourceFrameURI;
+                }
 
-                this.tbFPS.Text = setting.FPS.ToString();
-                this.comboBoxSizeMode.SelectedIndex = (int)setting.SizeMode;
+                this.tbFPS.Text = _setting.FPS.ToString();
+                this.comboBoxSizeMode.SelectedIndex = (int)_setting.SizeMode;
             }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            setting.Mode = (Settings.SettingTypes.Modes)this.comboBoxMode.SelectedIndex;
+            Settings.SettingTypes.Modes mode = (Settings.SettingTypes.Modes)this.comboBoxMode.SelectedIndex;
+            _setting.Mode = mode;
 
-            setting.SourceFolderPath = this.textBoxSourceFolderPath.Text;
-            setting.FrameName = this.textBoxFrameName.Text;
+            if (mode == Settings.SettingTypes.Modes.AddNew)
+            {
+                _setting.SourceFramePath = this.textBoxSourceFramePath.Text;
+            }
+            else if (mode == Settings.SettingTypes.Modes.HTTPGet)
+            {
+                _setting.SourceFrameURI = this.textBoxSourceFramePath.Text;
+            }
 
             int fps = 0;
             if (int.TryParse(this.tbFPS.Text, out fps))
             {
-                setting.FPS = fps;
+                _setting.FPS = fps;
             }
-            setting.SizeMode = (Settings.SettingTypes.SizeModes)this.comboBoxSizeMode.SelectedIndex;
+            _setting.SizeMode = (Settings.SettingTypes.SizeModes)this.comboBoxSizeMode.SelectedIndex;
 
-            if (Settings.Setting.SaveToDisk(setting))
+            if (Settings.Setting.SaveToDisk(_setting))
             {
                 MessageBox.Show("OK");
             }
             else
             {
                 MessageBox.Show("Error");
+            }
+            this.Close();
+        }
+
+        private void comboBoxMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Settings.SettingTypes.Modes mode = (Settings.SettingTypes.Modes)this.comboBoxMode.SelectedIndex;
+            if (mode == Settings.SettingTypes.Modes.Replace)
+            {
+                this.textBoxSourceFramePath.Text = _setting.SourceFramePath;
+            }
+            else if (mode == Settings.SettingTypes.Modes.HTTPGet)
+            {
+                this.textBoxSourceFramePath.Text = _setting.SourceFrameURI;
             }
         }
     }

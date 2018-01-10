@@ -27,6 +27,10 @@ namespace PicturesVideoPlayer
             {
                 _connector = new LocalDiskPollingConnector(this, this.pictureBoxFrameView, this.components);
             }
+            else if (Settings.Setting.Instance.Mode == Settings.SettingTypes.Modes.HTTPGet)
+            {
+                _connector = new HttpGetPollingConnector(this, this.pictureBoxFrameView, this.components);
+            }
 
             InitUI();
         }
@@ -85,8 +89,6 @@ namespace PicturesVideoPlayer
         {
             Helpers.UIHelper.SwitchFullScreen(this);
         }
-
-
 
         private void btnPlayOrPause_Click(object sender, EventArgs e)
         {

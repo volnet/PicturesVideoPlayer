@@ -63,8 +63,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connector\HttpGetPollingConnector.cs" />
     <Compile Include="Connector\IUIConnector.cs" />
     <Compile Include="Connector\LocalDiskPollingConnector.cs" />
+    <Compile Include="Connector\PollingConnector.cs" />
     <Compile Include="Helpers\UIHelper.cs" />
     <Compile Include="Settings\SettingTypes\Modes.cs" />
     <Compile Include="Settings\Setting.cs" />

@@ -34,13 +34,11 @@
             this.tbFPS = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBoxSourceFolderPath = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.textBoxSourceFramePath = new System.Windows.Forms.TextBox();
             this.groupBoxOutput = new System.Windows.Forms.GroupBox();
             this.comboBoxSizeMode = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBoxInput = new System.Windows.Forms.GroupBox();
-            this.textBoxFrameName = new System.Windows.Forms.TextBox();
             this.comboBoxMode = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBoxOutput.SuspendLayout();
@@ -94,28 +92,18 @@
             this.label3.Location = new System.Drawing.Point(36, 72);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(298, 30);
+            this.label3.Size = new System.Drawing.Size(283, 30);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Source Folder Path:";
+            this.label3.Text = "Source Frame Path:";
             // 
-            // textBoxSourceFolderPath
+            // textBoxSourceFramePath
             // 
-            this.textBoxSourceFolderPath.Location = new System.Drawing.Point(401, 69);
-            this.textBoxSourceFolderPath.Margin = new System.Windows.Forms.Padding(4);
-            this.textBoxSourceFolderPath.Name = "textBoxSourceFolderPath";
-            this.textBoxSourceFolderPath.Size = new System.Drawing.Size(906, 42);
-            this.textBoxSourceFolderPath.TabIndex = 6;
-            this.textBoxSourceFolderPath.Text = "Video\\";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(36, 157);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(178, 30);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Frame Name:";
+            this.textBoxSourceFramePath.Location = new System.Drawing.Point(401, 69);
+            this.textBoxSourceFramePath.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxSourceFramePath.Name = "textBoxSourceFramePath";
+            this.textBoxSourceFramePath.Size = new System.Drawing.Size(906, 42);
+            this.textBoxSourceFramePath.TabIndex = 6;
+            this.textBoxSourceFramePath.Text = "Video\\frame.jpg";
             // 
             // groupBoxOutput
             // 
@@ -158,10 +146,8 @@
             // 
             // groupBoxInput
             // 
-            this.groupBoxInput.Controls.Add(this.textBoxFrameName);
-            this.groupBoxInput.Controls.Add(this.label4);
             this.groupBoxInput.Controls.Add(this.label3);
-            this.groupBoxInput.Controls.Add(this.textBoxSourceFolderPath);
+            this.groupBoxInput.Controls.Add(this.textBoxSourceFramePath);
             this.groupBoxInput.Location = new System.Drawing.Point(30, 87);
             this.groupBoxInput.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxInput.Name = "groupBoxInput";
@@ -171,16 +157,7 @@
             this.groupBoxInput.TabStop = false;
             this.groupBoxInput.Text = "Input";
             // 
-            // textBoxISTUpdateOneFrameName
-            // 
-            this.textBoxFrameName.Location = new System.Drawing.Point(401, 153);
-            this.textBoxFrameName.Margin = new System.Windows.Forms.Padding(4);
-            this.textBoxFrameName.Name = "textBoxISTUpdateOneFrameName";
-            this.textBoxFrameName.Size = new System.Drawing.Size(324, 42);
-            this.textBoxFrameName.TabIndex = 10;
-            this.textBoxFrameName.Text = "frame.jpg";
-            // 
-            // comboBoxInputSourceType
+            // comboBoxMode
             // 
             this.comboBoxMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxMode.FormattingEnabled = true;
@@ -190,9 +167,10 @@
             "HTTPGet"});
             this.comboBoxMode.Location = new System.Drawing.Point(154, 18);
             this.comboBoxMode.Margin = new System.Windows.Forms.Padding(4);
-            this.comboBoxMode.Name = "comboBoxInputSourceType";
+            this.comboBoxMode.Name = "comboBoxMode";
             this.comboBoxMode.Size = new System.Drawing.Size(324, 38);
             this.comboBoxMode.TabIndex = 9;
+            this.comboBoxMode.SelectedIndexChanged += new System.EventHandler(this.comboBoxMode_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -233,13 +211,11 @@
         private System.Windows.Forms.TextBox tbFPS;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxSourceFolderPath;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBoxSourceFramePath;
         private System.Windows.Forms.GroupBox groupBoxOutput;
         private System.Windows.Forms.ComboBox comboBoxSizeMode;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBoxInput;
-        private System.Windows.Forms.TextBox textBoxFrameName;
         private System.Windows.Forms.ComboBox comboBoxMode;
         private System.Windows.Forms.Label label5;
     }
