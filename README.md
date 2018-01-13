@@ -1,6 +1,14 @@
 PicturesVideoPlayer
 ============================
 
+Build Status
+----------------------------
+
+| Name | Status |
+|:----:|:-------|
+| winform | ![](https://apphub.visualstudio.com/_apis/public/build/definitions/9627dc88-e88a-47df-9ddc-97735c047fce/1/badge) |
+| html | - |
+
 It's a winform program to play pictures as a video.
 
 Features
