@@ -5,8 +5,8 @@ Build Status
 ----------------------------
 
 | Name | Status |
-|:----:|:-------|
-| winform | ![](https://apphub.visualstudio.com/_apis/public/build/definitions/9627dc88-e88a-47df-9ddc-97735c047fce/1/badge) |
+|:----:|:-------:|
+| winform | [<img src="https://apphub.visualstudio.com/_apis/public/build/definitions/d7b3970d-8e23-477d-be44-b1a995cec474/4/badge"/>] (https://apphub.visualstudio.com/PicturesVideoPlayer/_build/index?definitionId=4) |
 | html | - |
 
 It's a winform program to play pictures as a video.

@@ -53,7 +53,7 @@ namespace PicturesVideoPlayer.Connector
             {
                 try
                 {
-                    string path = string.Empty;.
+                    string path = string.Empty;
                     if (FrameSets.TryDequeue(out path))
                     {
                         updating = true;
