@@ -31,16 +31,16 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pictureBoxFrameView = new System.Windows.Forms.PictureBox();
-            this.btnPlayOrPause = new System.Windows.Forms.PictureBox();
-            this.timerForShowingBtnPause = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnPlayOrPause = new System.Windows.Forms.PictureBox();
+            this.timerForShowingBtnPause = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFrameView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnPlayOrPause)).BeginInit();
             this.contextMenuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPlayOrPause)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // pictureBoxFrameView
             // 
             this.pictureBoxFrameView.BackColor = System.Drawing.Color.Black;
             this.pictureBoxFrameView.ContextMenuStrip = this.contextMenuStrip;
@@ -48,13 +48,27 @@
             this.pictureBoxFrameView.ErrorImage = null;
             this.pictureBoxFrameView.InitialImage = null;
             this.pictureBoxFrameView.Location = new System.Drawing.Point(0, 0);
-            this.pictureBoxFrameView.Name = "pictureBox1";
+            this.pictureBoxFrameView.Name = "pictureBoxFrameView";
             this.pictureBoxFrameView.Size = new System.Drawing.Size(1364, 883);
             this.pictureBoxFrameView.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxFrameView.TabIndex = 0;
             this.pictureBoxFrameView.TabStop = false;
-            this.pictureBoxFrameView.DoubleClick += new System.EventHandler(this.pictureBox1_DoubleClick);
-
+            this.pictureBoxFrameView.DoubleClick += new System.EventHandler(this.PictureBoxFrameView_DoubleClick);
+            // 
+            // contextMenuStrip
+            // 
+            this.contextMenuStrip.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.settingsToolStripMenuItem});
+            this.contextMenuStrip.Name = "contextMenuStrip";
+            this.contextMenuStrip.Size = new System.Drawing.Size(182, 40);
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(181, 36);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // btnPlayOrPause
             // 
@@ -67,21 +81,7 @@
             this.btnPlayOrPause.TabIndex = 1;
             this.btnPlayOrPause.TabStop = false;
             this.btnPlayOrPause.Click += new System.EventHandler(this.btnPlayOrPause_Click);
-            // 
-            // contextMenuStrip
-            // 
-            this.contextMenuStrip.ImageScalingSize = new System.Drawing.Size(32, 32);
-            this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.settingsToolStripMenuItem});
-            this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(245, 84);
-            // 
-            // settingsToolStripMenuItem
-            // 
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(244, 36);
-            this.settingsToolStripMenuItem.Text = "Settings";
-            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+         
             // 
             // MainForm
             // 
@@ -98,8 +98,8 @@
             this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseDoubleClick);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFrameView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnPlayOrPause)).EndInit();
             this.contextMenuStrip.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnPlayOrPause)).EndInit();
             this.ResumeLayout(false);
 
         }

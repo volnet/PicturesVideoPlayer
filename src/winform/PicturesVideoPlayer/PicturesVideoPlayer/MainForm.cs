@@ -23,20 +23,12 @@ namespace PicturesVideoPlayer
         private IUIConnector _connector = null;
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if (Settings.Setting.Instance.Mode == Settings.SettingTypes.Modes.Replace)
-            {
-                _connector = new LocalDiskPollingConnector(this, this.pictureBoxFrameView, this.components);
-            }
-            else if (Settings.Setting.Instance.Mode == Settings.SettingTypes.Modes.HTTPGet)
-            {
-                _connector = new HttpGetPollingConnector(this, this.pictureBoxFrameView, this.components);
-            }
-
             InitUI();
+            ReLoadConnector();
         }
 
         private void InitUI()
-        { 
+        {
             // PlayOrPause button
             this.btnPlayOrPause.Parent = this.pictureBoxFrameView;
             this.btnPlayOrPause.Image = global::PicturesVideoPlayer.Properties.Resources.play;
@@ -46,8 +38,39 @@ namespace PicturesVideoPlayer
             this.pictureBoxFrameView.MouseLeave += PictureBoxFrameView_MouseLeave;
             this.btnPlayOrPause.MouseHover += BtnPlayOrPause_MouseHover;
             this.btnPlayOrPause.MouseLeave += BtnPlayOrPause_MouseLeave;
+
+            if (Settings.Setting.Instance.SizeMode == Settings.SettingTypes.SizeModes.Stretch)
+            {
+                this.pictureBoxFrameView.SizeMode = PictureBoxSizeMode.StretchImage;
+            }
+            else if(Settings.Setting.Instance.SizeMode == Settings.SettingTypes.SizeModes.Zoom)
+            {
+                this.pictureBoxFrameView.SizeMode = PictureBoxSizeMode.Zoom;
+            }
         }
 
+        public void ReLoadConnector()
+        {
+            if (_connector != null)
+            {
+                _connector.RefreshStop();
+            }
+            _connector = null;
+            if (Settings.Setting.Instance.Mode == Settings.SettingTypes.Modes.Replace)
+            {
+                _connector = new LocalDiskPollingConnector(this, this.pictureBoxFrameView, this.components);
+            }
+            else if (Settings.Setting.Instance.Mode == Settings.SettingTypes.Modes.HTTPGet)
+            {
+                _connector = new HttpGetPollingConnector(this, this.pictureBoxFrameView, this.components);
+            }
+            else if (Settings.Setting.Instance.Mode == Settings.SettingTypes.Modes.AddNew)
+            {
+                _connector = new FileSystemWatcherConnector(this, this.pictureBoxFrameView, this.components);
+            }
+            ApplyPlayOrPause(false);
+        }
+        
         private void PictureBoxFrameView_MouseLeave(object sender, EventArgs e)
         {
             btnPlayOrPauseNeedBeHide = true;
@@ -85,26 +108,25 @@ namespace PicturesVideoPlayer
             Helpers.UIHelper.SwitchFullScreen(this);
         }
 
-        private void pictureBox1_DoubleClick(object sender, EventArgs e)
+        private void PictureBoxFrameView_DoubleClick(object sender, EventArgs e)
         {
             Helpers.UIHelper.SwitchFullScreen(this);
         }
 
         private void btnPlayOrPause_Click(object sender, EventArgs e)
         {
-            SwitchPlayOrPause();
+            ApplyPlayOrPause();
         }
 
         private bool isPlaying = false;
-        private void SwitchPlayOrPause()
+        private void ApplyPlayOrPause(bool switching = true)
         {
-            if (isPlaying)
+            bool willPlay = isPlaying;
+            if (switching)
             {
-                this.btnPlayOrPause.Image = global::PicturesVideoPlayer.Properties.Resources.play;
-                isPlaying = false;
-                _connector.RefreshStop();
+                willPlay = !isPlaying;
             }
-            else
+            if (willPlay)
             {
                 this.btnPlayOrPause.Image = global::PicturesVideoPlayer.Properties.Resources.pause;
                 isPlaying = true;
@@ -112,6 +134,12 @@ namespace PicturesVideoPlayer
                 _connector.RefreshStart();
 
                 HideBtnPauseLater();
+            }
+            else
+            {
+                this.btnPlayOrPause.Image = global::PicturesVideoPlayer.Properties.Resources.play;
+                isPlaying = false;
+                _connector.RefreshStop();
             }
         }
 
@@ -151,7 +179,7 @@ namespace PicturesVideoPlayer
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SettingsForm sf = new SettingsForm();
-            sf.Show();
+            sf.ShowDialog(this);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NLog;
+using PicturesVideoPlayer.Helpers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -12,6 +14,7 @@ namespace PicturesVideoPlayer.Connector
 {
     class LocalDiskPollingConnector : PollingConnector
     {
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
         public LocalDiskPollingConnector(Form form, PictureBox pictureBox, IContainer components)
             : base(form, pictureBox, components)
         {
@@ -22,54 +25,18 @@ namespace PicturesVideoPlayer.Connector
         {
             try
             {
-                Image image = GetImage();
+                string path = Settings.Setting.Instance.SourceFrameFullPath;
+                Image image = ImageHelper.GetImage(path, FileHelper.GetFileStream);
                 if (image != null)
                 {
+                    _logger.Debug("updating " + path);
                     UpdateFrameToUI(image);
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                _logger.Debug(ex.ToString());
             }
-        }
-
-        private Image GetImage()
-        {
-            Image img = null;
-            Stream ms = GetFrameStream();
-            if (ms != null)
-            {
-                img = Image.FromStream(ms);
-            }
-            return img;
-        }
-
-        private Stream GetFrameStream()
-        {
-            try
-            {
-                string path = Settings.Setting.Instance.SourceFrameFullPath;
-                if (!string.IsNullOrEmpty(path))
-                {
-                    byte[] buffer = System.IO.File.ReadAllBytes(path);
-                    if (buffer != null)
-                    {
-                        MemoryStream ms = new MemoryStream(buffer);
-                        return ms;
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("path IsNullOrEmpty");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-
-            return null;
         }
     }
 }

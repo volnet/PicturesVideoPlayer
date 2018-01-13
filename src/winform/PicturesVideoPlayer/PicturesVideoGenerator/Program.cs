@@ -16,15 +16,34 @@ namespace PicturesVideoGenerator
             int rnd = new Random(DateTime.Now.Millisecond).Next(0, 10000);
             string outputFramePath = GetOutputFramePath();
             string rawFramePath = GetRawFramePath();
+
+            Console.WriteLine("It will generate new picture here:");
+            Console.WriteLine(outputFramePath);
+            Console.WriteLine("Please enter frame name like 'frame.jpg' for replacing or press 'Enter' key by default '<datetime>.jpg':");
+            string fileName = Console.ReadLine();
+            GetFileNameDelegate getFileName = null;
+
+            if (string.IsNullOrEmpty(fileName))
+            {
+                getFileName = () => { return DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".jpg"; };
+            }
+            else
+            {
+                getFileName = () => { return fileName; };
+            }
+
             while (true)
             {
+                string path = outputFramePath + getFileName();
                 Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + " creating jpg.");
-                rnd = PicturesGenerator.CreatePicture(rnd, outputFramePath, rawFramePath);
-                Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + " created.");
+                rnd = PicturesGenerator.CreatePicture(rnd, path, rawFramePath);
+                Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + path + " created.");
                 Console.WriteLine();
-                Thread.Sleep(1000 / 30); //30fps
+                Thread.Sleep(1000 ); //30fps
             }
         }
+
+        public delegate string GetFileNameDelegate();
 
         /// <summary>
         /// DownloadFile("http://192.168.1.102:8080/shot.jpg", @"E:\MyCSharpProject\Projects\wanda\github.com\volnet\PicturesVideoPlayer\src\winform\PicturesVideoPlayer\PicturesVideoPlayer\bin\Debug\Video\frame.jpg");

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using NLog;
 using PicturesVideoPlayer.Settings.SettingTypes;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace PicturesVideoPlayer.Settings
     
     class Setting
     {
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
         private Setting()
         {
             // set default value
@@ -21,6 +23,9 @@ namespace PicturesVideoPlayer.Settings
 
             this.FPS = 30;
             this.SizeMode = SizeModes.Zoom;
+
+            this.SourceFileSystemWatcherPath = "Video\\";
+            this.SourceFileSystemWatcherFilter = "*.jpg";
         }
 
         /// <summary>
@@ -56,6 +61,32 @@ namespace PicturesVideoPlayer.Settings
         }
 
         public string SourceFrameURI { get; set; }
+
+        public string SourceFileSystemWatcherPath { get; set; }
+
+        private string _sourceFileSystemWatcherPathFullPath = string.Empty;
+        [JsonIgnore]
+        public string SourceFileSystemWatcherPathFullPath
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(SourceFileSystemWatcherPath))
+                {
+                    // For Windows
+                    if (-1 != SourceFileSystemWatcherPath.IndexOf(":"))
+                    {
+                        _sourceFileSystemWatcherPathFullPath = SourceFileSystemWatcherPath;
+                    }
+                    else
+                    {
+                        _sourceFileSystemWatcherPathFullPath = System.IO.Path.GetFullPath(SourceFileSystemWatcherPath);
+                    }
+                }
+                return _sourceFileSystemWatcherPathFullPath;
+            }
+        }
+
+        public string SourceFileSystemWatcherFilter { get; set; }
 
         // output setting
         public int FPS { get; set; }
@@ -95,7 +126,7 @@ namespace PicturesVideoPlayer.Settings
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                _logger.Debug(ex.ToString());
                 success = false;
             }
             return success;
@@ -115,7 +146,7 @@ namespace PicturesVideoPlayer.Settings
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                _logger.Debug(ex.ToString());
             }
             return result;
         }
